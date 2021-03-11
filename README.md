@@ -6,12 +6,12 @@
 
 Listing des tweets [GET] et filtres disponibles :
 ```sh
-/tweets
-/tweets?count={nombre de tweets/page}&page={index page}&author={filtre auteur}&hashtag={filtre hashtag}
+localhost/api/tweets
+localhost/api/tweets?count={nombre de tweets/page}&page={index page}&author={filtre auteur}&hashtag={filtre hashtag}
 ```
 Ajout d'un tweet [POST]:
 ```sh
-/tweets
+localhost/api/tweets
 ```
 [POST] Request body (hashtags facultatifs):
 ```sh
