@@ -44,9 +44,9 @@ class TweetManager
         return $tweet->getId();
     }
 
-    public function getAll()
+    public function getAllByParams($page, $count, $author, $hashtag)
     {
-        $tweets = $this->tweetrepository->findAll();
+        $tweets = $this->tweetrepository->findAllByParams($page, $count, $author, $hashtag);
         return $tweets;
     }
 }

@@ -31,11 +31,17 @@
 
 
     /**
+     * @param Request $request
      * @return JsonResponse
      * @Route("/tweets", name="tweets", methods={"GET"})
      */
-    public function getTweets(){
-        $data = $this->tweetmanager->getAll();
+    public function getTweets(Request $request){
+        $data = $this->tweetmanager->getAllByParams(
+            $request->query->get('page') ? $request->query->get('page') : 1, 
+            $request->query->get('count') ? $request->query->get('count') : 25, 
+            $request->query->get('author') ? $request->query->get('author') : false, 
+            $request->query->get('hashtag') ? $request->query->get('hashtag') : false
+        );
         return $this->response($data);
     }
 

@@ -90,7 +90,12 @@
      */
     public function getHashtags()
     {
-        return $this->hashtags;
+        $htags = $this->hashtags;
+        $data = [];
+        foreach ($htags as $h) {
+            $data[] = $h->getContent();
+        }
+        return $data;
     }
     /**
      * @param mixed $author
@@ -138,9 +143,13 @@
      */
     public function jsonSerialize()
     {
-    return [
-        "message" => $this->getMessage(),
-        "author" => $this->getAuthor()
-    ];
+        $json = [
+            "message" => $this->getMessage(),
+            "author" => $this->getAuthor(),
+        ];
+        if(count($this->getHashtags())) {
+            $json["hastags"] = $this->getHashtags();
+        }
+        return $json;
     }
  }
