@@ -11,6 +11,9 @@
  use Symfony\Component\HttpFoundation\Request;
  use Symfony\Component\Routing\Annotation\Route;
 
+ use App\Service\TweetManager;
+
+
  /**
   * Class TweetController
   * @package App\Controller
@@ -18,74 +21,55 @@
   */
  class TweetController extends AbstractController
  {
+
+
+    public function __construct(TweetManager $tweetmanager, EntityManagerInterface $em)
+    {
+        $this->tweetmanager = $tweetmanager;
+        $this->em = $em;
+    }
+
+
     /**
-     * @param TweetRepository $tweetRepository
      * @return JsonResponse
      * @Route("/tweets", name="tweets", methods={"GET"})
      */
-    public function getTweets(TweetRepository $tweetRepository){
-    $data = $tweetRepository->findAll();
-    return $this->response($data);
+    public function getTweets(){
+        $data = $this->tweetmanager->getAll();
+        return $this->response($data);
     }
 
     /**
      * @param Request $request
      * @param EntityManagerInterface $entityManager
-     * @param TweetRepository $tweetRepository
      * @return JsonResponse
      * @throws \Exception
      * @Route("/tweets", name="tweets_add", methods={"POST"})
      */
-    public function addTweet(Request $request, EntityManagerInterface $entityManager, TweetRepository $tweetRepository){
+    public function addTweet(Request $request){
 
     try{
         $request = $this->transformJsonBody($request);
-
-        if (!$request || !$request->get('message') || !$request->request->get('author')){
+        if (!$request || !$request->request->get('message') || !$request->request->get('author')){
         throw new \Exception();
         }
+        if ($request->request->get('hashtags')) {
+            $data = $this->tweetmanager->createTweet($request->request->get('author'), $request->request->get('message'), $request->request->get('hashtags'));
+        } else {
+            $data = $this->tweetmanager->createTweet($request->request->get('author'), $request->request->get('message'));
+        }
 
-        $tweet = new Tweet();
-        $tweet->setMessage($request->get('message'));
-        $tweet->setAuthor($request->get('author'));
-        $entityManager->persist($tweet);
-        $entityManager->flush();
-
-        $data = $tweet->getId();
         return $this->response($data);
 
-    }catch (\Exception $e){
+    } catch (\Exception $e){
         $data = [
         'status' => 422,
-        'errors' => "Data no valid",
+        'errors' => "Wrong request body, missing params.",
         ];
         return $this->response($data, 422);
     }
 
     }
-
-
-    /**
-     * @param TweetRepository $tweetRepository
-     * @param $id
-     * @return JsonResponse
-     * @Route("/tweets/{id}", name="tweets_get", methods={"GET"})
-     */
-    public function getTweet(TweetRepository $tweetRepository, $id){
-    $tweet = $tweetRepository->find($id);
-
-    if (!$tweet){
-        $data = [
-        'status' => 404,
-        'errors' => "Tweet not found",
-        ];
-        return $this->response($data, 404);
-    }
-    return $this->response($tweet);
-    }
-
-
-
 
     /**
      * Returns a JSON response

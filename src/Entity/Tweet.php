@@ -1,6 +1,8 @@
 <?php
  namespace App\Entity;
+ use App\Entity\Hashtag;
  use Doctrine\ORM\Mapping as ORM;
+ use Doctrine\Common\Collections\ArrayCollection;
  use Symfony\Component\Validator\Constraints as Assert;
  /**
   * @ORM\Entity
@@ -26,9 +28,19 @@
     private $author;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Hashtag", mappedBy="tweet", cascade={"persist"})
+     */
+    private $hashtags;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $create_date;
+
+    public function __construct()
+    {
+        $this->hashtags = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -76,6 +88,22 @@
     /**
      * @return mixed
      */
+    public function getHashtags()
+    {
+        return $this->hashtags;
+    }
+    /**
+     * @param mixed $author
+     */
+    public function setHashtag(Hashtag $hashtag)
+    {
+        $this->hashtags[] = $hashtag;
+        $hashtag->setTweet($this);
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCreateDate(): ?\DateTime
     {
     return $this->create_date;
@@ -96,8 +124,7 @@
      * @ORM\PrePersist()
      */
     public function beforeSave(){
-
-    $this->create_date = new \DateTime('now', new \DateTimeZone('Africa/Casablanca'));
+        $this->create_date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
     }
 
 
