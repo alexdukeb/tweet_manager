@@ -45,11 +45,12 @@ composer install
 ```
 
 Configuration NGINX PHP-FPM situé dans le fichier **tweet_manager.conf** à la racine du projet.
+
 Après avoir installé NGINX et Php-fpm, mettre ce fichier de configuration dans : 
 
-/etc/nginx/sties-available
+**/etc/nginx/sties-available**
 
-/etc/nginx/sties-enabled
+**/etc/nginx/sties-enabled**
 
 
 Créez la base de donnée SQL puis renseignez les informations de connection dans le .env :
@@ -62,3 +63,5 @@ DATABASE_URL="mysql://root:@127.0.0.1:3306/tweet_manager"
 ```
 
 Executez le script SQL : **tweet_manager.sql** situé  à la racine du projet.
+
+Vous êtes prêt à utiliser l'API.
