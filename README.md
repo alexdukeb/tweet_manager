@@ -4,7 +4,7 @@
 
 ## Routes disponibles
 
-Listing des tweets [GET] :
+Listing des tweets [GET] et filtres disponibles :
 ```sh
 /tweets
 /tweets?count={nombre de tweets/page}&page={index page}&author={filtre auteur}&hashtag={filtre hashtag}
@@ -29,6 +29,14 @@ Ajout d'un tweet [POST]:
 
 ## Installation
 
+Configuration NGINX PHP-FPM situé dans le fichier **tweet_manager.conf** à la racine du projet.
+
+Récupérez le projet
+
+```sh
+git clone git@github.com:alexdukeb/tweet_manager.git
+```
+
 Installez les dépendences
 
 ```sh
@@ -44,4 +52,4 @@ Mdp par défaut :
 DATABASE_URL="mysql://root:@127.0.0.1:3306/tweet_manager"
 ```
 
-Executez le script SQL : tweet_manager.sql situé  à la racine du projet.
+Executez le script SQL : **tweet_manager.sql** situé  à la racine du projet.
