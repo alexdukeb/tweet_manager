@@ -27,14 +27,15 @@ Ajout d'un tweet [POST]:
 ```
 
 
-## Installation
+## Installation sur Linux
 
-Configuration NGINX PHP-FPM situé dans le fichier **tweet_manager.conf** à la racine du projet.
 
-Récupérez le projet
+Clonez le projet dans **/var/www**
+Si vous installez le projet dans à un autre emplacement, indiquez ce chemin dans le fichier **tweet_manager.conf**  pour la variable root.
+
 
 ```sh
-git clone git@github.com:alexdukeb/tweet_manager.git
+git clone https://github.com/alexdukeb/tweet_manager.git
 ```
 
 Installez les dépendences
@@ -42,6 +43,14 @@ Installez les dépendences
 ```sh
 composer install
 ```
+
+Configuration NGINX PHP-FPM situé dans le fichier **tweet_manager.conf** à la racine du projet.
+Après avoir installé NGINX et Php-fpm, mettre ce fichier de configuration dans : 
+
+/etc/nginx/sties-available
+
+/etc/nginx/sties-enabled
+
 
 Créez la base de donnée SQL puis renseignez les informations de connection dans le .env :
 
