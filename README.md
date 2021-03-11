@@ -1,5 +1,5 @@
-# Tweet Manager - Alexandre Ralli
-## Splitfire
+# Splitfire Test - Alexandre Ralli
+## Tweet Manager
 
 
 ## Routes disponibles
@@ -7,13 +7,13 @@
 Listing des tweets [GET] :
 ```sh
 /tweets
-/tweets?count={nombre de tweets/page}&page={index page}&author={filtre auteur}hashtag={filtre hashtag}
+/tweets?count={nombre de tweets/page}&page={index page}&author={filtre auteur}&hashtag={filtre hashtag}
 ```
 Ajout d'un tweet [POST]:
 ```sh
 /tweets
 ```
-Request body (hashtags facultatifs):
+[POST] Request body (hashtags facultatifs):
 ```sh
 {
     "author": "auteur",
@@ -36,7 +36,9 @@ composer install
 ```
 
 Créez la base de donnée SQL puis renseignez les informations de connection dans le .env :
+
 Utilisateur par défaut  : root
+
 Mdp par défaut : 
 ```sh
 DATABASE_URL="mysql://root:@127.0.0.1:3306/tweet_manager"
