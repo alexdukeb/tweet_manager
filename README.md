@@ -1,4 +1,3 @@
-# Splitfire Test - Alexandre Ralli
 ## Tweet Manager
 
 
